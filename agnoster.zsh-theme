@@ -29,13 +29,13 @@ CURRENT_BG='NONE'
 PRIMARY_FG=black
 
 # Characters
-SEGMENT_SEPARATOR="\ue0b0"
-PLUSMINUS="\u00b1"
-BRANCH="\ue0a0"
-DETACHED="\u27a6"
-CROSS="\u2718"
-LIGHTNING="\u26a1"
-GEAR="\u2699"
+SEGMENT_SEPARATOR='⮀' # "\ue0b0"
+PLUSMINUS="\u00b1"     # "\u00b1"
+BRANCH='⭠'            # "\ue0a0"
+DETACHED=             # "\u27a6"
+CROSS='✘'             # "\u2718"
+LIGHTNING='⚡'         # "\u26a1"
+GEAR='⚙'              # "\u2699"
 
 # Begin a segment
 # Takes two arguments, background and foreground. Both can be omitted,
@@ -85,7 +85,7 @@ prompt_git() {
   ref="$vcs_info_msg_0_"
   if [[ -n "$ref" ]]; then
     if is_dirty; then
-      color=yellow
+      color=green
       ref="${ref} $PLUSMINUS"
     else
       color=green
@@ -96,6 +96,7 @@ prompt_git() {
     else
       ref="$DETACHED ${ref/.../}"
     fi
+    prompt_segment black black "\n"
     prompt_segment $color $PRIMARY_FG
     print -Pn " $ref"
   fi
@@ -111,6 +112,7 @@ prompt_dir() {
 # - am I root
 # - are there background jobs?
 prompt_status() {
+  prompt_segment black black '\n'
   local symbols
   symbols=()
   [[ $RETVAL -ne 0 ]] && symbols+="%{%F{red}%}$CROSS"
